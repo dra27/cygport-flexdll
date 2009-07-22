@@ -1,0 +1,36 @@
+SVN_URI="svn://frisch.fr/flexdll/trunk"
+SVN_REV=${PV[3]}
+
+inherit ocaml svn
+
+DESCRIPTION="Creates DLLs with symbols to be resolved at runtime"
+HOMEPAGE="http://alain.frisch.fr/flexdll.html"
+#SRC_URI="http://alain.frisch.fr/flexdll/${P}.tar.gz"
+#SRC_DIR=${PN}
+
+PATCH_URI="0.19-cygpath.patch"
+
+#DISTCLEANFILES="version.ml"
+
+src_compile() {
+	lndirs
+	cd ${B}
+	cygmake CHAINS="cygwin" CYGCC="${CC}"
+	echo -e '#! /bin/sh\nexec /usr/lib/flexdll/flexlink.exe "$@"' > flexlink.sh
+}
+
+src_test() {
+	cd ${B}/test
+	cygmake demo CHAIN="cygwin" CC="${CC}" O="o"
+}
+
+src_install() {
+	cd ${B}
+	newbin flexlink.sh flexlink
+
+	exeinto /usr/lib/${PN}
+	doexe flexlink.exe
+
+	insinto /usr/lib/${PN}
+	doins flexdll_cygwin.o flexdll_initer_cygwin.o
+}

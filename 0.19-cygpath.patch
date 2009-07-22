@@ -1,0 +1,18 @@
+1) If built for Cygwin itself, we don't need to use cygpath.
+
+2) With Cygwin 1.7, ">NUL" is understood as a redirect to file "NUL"
+instead of the Windows null device (equiv. /dev/null).
+
+--- origsrc/flexdll/reloc.ml	2009-05-06 03:03:45.000000000 -0500
++++ src/flexdll/reloc.ml	2009-07-21 19:28:55.478154300 -0500
+@@ -1035,8 +1035,8 @@ let main () =
+       match !toolchain, !cygpath_arg with
+       | _, `Yes -> true
+       | _, `No -> false
+-      | (`CYGWIN|`MINGW), `None -> (Sys.command "cygpath -v 2>NUL >NUL" = 0)
+-      | (`MSVC|`LIGHTLD), `None -> false
++      | (`MINGW), `None -> (Sys.command "cygpath -v 2>NUL >NUL" = 0)
++      | (`CYGWIN|`MSVC|`LIGHTLD), `None -> false
+     end;
+ 
+ 
