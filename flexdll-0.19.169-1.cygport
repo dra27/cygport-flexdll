@@ -8,9 +8,11 @@ HOMEPAGE="http://alain.frisch.fr/flexdll.html"
 #SRC_URI="http://alain.frisch.fr/flexdll/${P}.tar.gz"
 #SRC_DIR=${PN}
 
-PATCH_URI="0.19-cygpath.patch"
+PATCH_URI="0.19-cygpath.patch
+           0.19-data-auto-imports.patch
+           0.19-shared-libgcc.patch"
 
-#DISTCLEANFILES="version.ml"
+DISTCLEANFILES="version.ml"
 
 src_compile() {
 	lndirs
@@ -21,7 +23,8 @@ src_compile() {
 
 src_test() {
 	cd ${B}/test
-	cygmake demo CHAIN="cygwin" CC="${CC}" O="o"
+	cygmake clean
+	cygmake demo CHAIN="cygwin" CC="${CC}" O="o" EXTRA_OPTS="-v -v -v -explain -show-exports -show-imports"
 }
 
 src_install() {
