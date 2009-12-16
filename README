@@ -4,15 +4,15 @@ FlexDLL implements the POSIX dlopen API by creating DLLs whose symbols
 can be resolved at runtime, rather than at linktime as is usual.
 
 Runtime requirements:
-  cygwin-1.7.0-56
+  cygwin-1.7.0-67
   gcc4-core
-  libgcc1-4.3.2-2
+  libgcc1-4.3.4-3
 
 Build requirements:
 (besides corresponding -devel packages)
   binutils-2.19.51-1
-  cygport-0.9.9-1
-  gcc4-core-4.3.2-2
+  cygport-0.9.10-1
+  gcc4-core-4.3.4-3
   make-3.81-2
   ocaml-3.11.1-1
 
@@ -25,30 +25,22 @@ Canonical download:
 -------------------------------------------
 
 Build instructions:
-  unpack flexdll-0.19.169-X-src.tar.bz2
+  unpack flexdll-0.20-X-src.tar.bz2
     if you use setup to install this src package, it will be
 	 unpacked under /usr/src automatically
   cd /usr/src
-  cygport ./flexdll-0.19.169-X.cygport all
+  cygport ./flexdll-0.20-X.cygport all
 
 This will create:
-  /usr/src/flexdll-0.19.169-X-src.tar.bz2
-  /usr/src/flexdll-0.19.169-X.tar.bz2
+  /usr/src/flexdll-0.20-X-src.tar.bz2
+  /usr/src/flexdll-0.20-X.tar.bz2
 
 -------------------------------------------
 
-Files included in the binary package:
-
-  /usr/bin/flexlink
-  /usr/lib/flexdll/flexdll_cygwin.o
-  /usr/lib/flexdll/flexdll_initer_cygwin.o
-  /usr/lib/flexdll/flexlink.exe
-  /usr/share/doc/flexdll/LICENSE
-  /usr/share/doc/flexdll/README
-
-------------------
-
 Port Notes:
+
+----- version 0.20-1 -----
+Version bump.
 
 ----- version 0.19.169-1 -----
 Initial release for Cygwin 1.7.
