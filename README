@@ -4,15 +4,14 @@ FlexDLL implements the POSIX dlopen API by creating DLLs whose symbols
 can be resolved at runtime, rather than at linktime as is usual.
 
 Runtime requirements:
-  cygwin-1.7.1-1
+  cygwin-1.7.7-1
   gcc4-core
-  libgcc1-4.3.4-3
 
 Build requirements:
 (besides corresponding -devel packages)
-  binutils-2.19.51-1
-  cygport-0.9.80-1
-  gcc4-core-4.3.4-3
+  binutils-2.20.51-2
+  cygport-0.10.0-1
+  gcc4-core-4.5.0-1
   make-3.81-2
   ocaml-3.11.2-1
 
@@ -25,19 +24,22 @@ Canonical download:
 -------------------------------------------
 
 Build instructions:
-  unpack flexdll-0.22-X-src.tar.bz2
+  unpack flexdll-0.25-X-src.tar.bz2
     if you use setup to install this src package, it will be
 	 unpacked under /usr/src automatically
   cd /usr/src
-  cygport ./flexdll-0.22-X.cygport all
+  cygport ./flexdll-0.25-X.cygport all
 
 This will create:
-  /usr/src/flexdll-0.22-X-src.tar.bz2
-  /usr/src/flexdll-0.22-X.tar.bz2
+  /usr/src/flexdll-0.25-X-src.tar.bz2
+  /usr/src/flexdll-0.25-X.tar.bz2
 
 -------------------------------------------
 
 Port Notes:
+
+----- version 0.25-1 -----
+Version bump.
 
 ----- version 0.22-1 -----
 Version bump.

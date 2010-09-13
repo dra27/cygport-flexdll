@@ -1,0 +1,27 @@
+--- origsrc/flexdll/reloc.ml	2010-06-28 08:28:37.000000000 -0500
++++ src/flexdll/reloc.ml	2010-09-12 01:17:54.457121900 -0500
+@@ -163,7 +163,7 @@ let gcclib () =
+   | `MINGW -> "-mno-cygwin "
+   | _ -> ""
+   in
+-  Filename.dirname (get_output1 ~use_bash:(!toolchain = `CYGWIN) (Printf.sprintf "gcc %s-print-libgcc-file-name" extra))
++  Filename.dirname (get_output1 ~use_bash:(!toolchain = `CYGWIN && Sys.os_type != "Cygwin") (Printf.sprintf "gcc %s-print-libgcc-file-name" extra))
+ 
+ let file_exists fn =
+   if Sys.file_exists fn && not (Sys.is_directory fn) then Some fn
+@@ -1068,11 +1068,10 @@ let main () =
+ 
+   use_cygpath :=
+     begin
+-      match !toolchain, !cygpath_arg with
+-      | _, `Yes -> true
+-      | _, `No -> false
+-      | (`CYGWIN|`MINGW), `None -> (Sys.command "cygpath -v 2>NUL >NUL" = 0)
+-      | (`MSVC|`MSVC64|`LIGHTLD), `None -> false
++      match Sys.os_type, !toolchain, !cygpath_arg with
++      | _, _, `Yes -> true
++      | "Win32", (`CYGWIN|`MINGW), `None -> (Sys.command "cygpath -v 2>NUL >NUL" = 0)
++      | _, _, _ -> false
+     end;
+ 
+ 

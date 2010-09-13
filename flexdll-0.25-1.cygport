@@ -6,9 +6,9 @@ SRC_URI="http://alain.frisch.fr/flexdll/${P}.tar.gz"
 SRC_DIR=${PN}
 
 PATCH_URI="
-	0.22-cygwin-on-cygwin.patch
+	0.25-cygwin-on-cygwin.patch
 	0.19-data-auto-imports.patch
-	0.19-shared-libgcc.patch
+	0.25-shared-libgcc.patch
 	0.22-cmdline-gcc-opts.patch
 "
 
@@ -35,5 +35,5 @@ src_install() {
 	doexe flexlink.exe
 
 	insinto /usr/lib/${PN}
-	doins flexdll_cygwin.o flexdll_initer_cygwin.o
+	doins flexdll.h flexdll_cygwin.o flexdll_initer_cygwin.o
 }

@@ -1,5 +1,5 @@
 category: Devel
-requires: gcc4-core libgcc1
+requires: gcc4-core
 sdesc: "Creates DLLs with runtime symbol resolution"
 ldesc: "FlexDLL implements the POSIX dlopen API by creating DLLs whose 
 symbols can be resolved at runtime, rather than at linktime as is 
