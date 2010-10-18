@@ -7,7 +7,7 @@ Handle the most common gcc args by passing them to gcc.
    in
  
 +  let tolinker = function
-+    | "-f" | "-m" | "-O" | "-W" -> true
++    | "-f" | "-g" | "-m" | "-O" | "-W" -> true
 +    | _ -> false
 +  in
 +
