@@ -1,0 +1,12 @@
+--- origsrc/flexdll/reloc.ml	2012-08-30 22:40:48.659531200 -0500
++++ src/flexdll/reloc.ml	2012-08-30 22:50:14.760312400 -0500
+@@ -1099,7 +1099,8 @@ let main () =
+       | _, `No -> false
+       | (`MINGW|`MINGW64|`CYGWIN), `None ->
+           begin match Sys.os_type with
+-          | "Unix" | "Cygwin" ->
++          | "Cygwin" -> false
++          | "Unix" ->
+               Sys.command "cygpath -S 2>/dev/null >/dev/null" = 0
+           | "Win32" ->
+               Sys.command "cygpath -S 2>NUL >NUL" = 0

@@ -1,15 +1,18 @@
 inherit ocaml
 
-DESCRIPTION="Creates DLLs with symbols to be resolved at runtime"
+CATEGORY="Devel"
+SUMMARY="Creates DLLs with runtime symbol resolution"
+DESCRIPTION="FlexDLL implements the POSIX dlopen API by creating DLLs whose
+symbols can be resolved at runtime, rather than at linktime as is usual."
 HOMEPAGE="http://alain.frisch.fr/flexdll.html"
 SRC_URI="http://alain.frisch.fr/flexdll/${P}.tar.gz"
 SRC_DIR=${PN}
 
 PATCH_URI="
-	0.26-cygwin-on-cygwin.patch
 	0.19-data-auto-imports.patch
 	0.25-shared-libgcc.patch
 	0.22-cmdline-gcc-opts.patch
+	0.30-no-cygpath.patch
 "
 
 DISTCLEANFILES="version.ml"
