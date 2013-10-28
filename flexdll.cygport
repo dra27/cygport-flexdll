@@ -1,13 +1,15 @@
 inherit ocaml
 
+NAME="flexdll"
+VERSION=0.30
+RELEASE=1
 CATEGORY="Devel"
 SUMMARY="Creates DLLs with runtime symbol resolution"
 DESCRIPTION="FlexDLL implements the POSIX dlopen API by creating DLLs whose
 symbols can be resolved at runtime, rather than at linktime as is usual."
 HOMEPAGE="http://alain.frisch.fr/flexdll.html"
-SRC_URI="http://alain.frisch.fr/flexdll/${P}.tar.gz"
-SRC_DIR=${PN}
-
+SRC_URI="http://alain.frisch.fr/flexdll/${NAME}-${VERSION}.tar.gz"
+SRC_DIR=${NAME}
 PATCH_URI="
 	0.19-data-auto-imports.patch
 	0.25-shared-libgcc.patch
@@ -34,9 +36,9 @@ src_install() {
 	cd ${B}
 	newbin flexlink.sh flexlink
 
-	exeinto /usr/lib/${PN}
+	exeinto /usr/lib/${NAME}
 	doexe flexlink.exe
 
-	insinto /usr/lib/${PN}
+	insinto /usr/lib/${NAME}
 	doins flexdll.h flexdll_cygwin.o flexdll_initer_cygwin.o
 }
