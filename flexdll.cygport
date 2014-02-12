@@ -1,7 +1,7 @@
 inherit ocaml
 
 NAME="flexdll"
-VERSION=0.30
+VERSION=0.31
 RELEASE=1
 CATEGORY="Devel"
 SUMMARY="Creates DLLs with runtime symbol resolution"
@@ -22,14 +22,16 @@ DISTCLEANFILES="version.ml"
 src_compile() {
 	lndirs
 	cd ${B}
-	cygmake CHAINS="cygwin" CYGCC="${CC}"
+	cygmake CHAINS="cygwin mingw mingw64" \
+		CYGCC=${ARCH_x86_64+i686-pc-cygwin-}gcc \
+		LINKFLAGS="-ccopt version_res.o"
 	echo -e '#! /bin/sh\nexec /usr/lib/flexdll/flexlink.exe "$@"' > flexlink.sh
 }
 
 src_test() {
 	cd ${B}/test
 	cygmake clean
-	cygmake demo CHAIN="cygwin" CC="${CC}" O="o" EXTRA_OPTS="-v -v -v -explain -show-exports -show-imports"
+	cygmake demo CHAIN="cygwin${ARCH_x86_64+64}" CC="${CC}" O="o" EXTRA_OPTS="-v -v -v -explain -show-exports -show-imports"
 }
 
 src_install() {
@@ -40,5 +42,5 @@ src_install() {
 	doexe flexlink.exe
 
 	insinto /usr/lib/${NAME}
-	doins flexdll.h flexdll_cygwin.o flexdll_initer_cygwin.o
+	doins flexdll.h flexdll_*.o
 }
