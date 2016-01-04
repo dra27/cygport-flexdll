@@ -1,7 +1,7 @@
 inherit ocaml
 
 NAME="flexdll"
-VERSION=0.31
+VERSION=0.34
 RELEASE=1
 CATEGORY="Devel"
 SUMMARY="Creates DLLs with runtime symbol resolution"
@@ -11,10 +11,8 @@ HOMEPAGE="http://alain.frisch.fr/flexdll.html"
 SRC_URI="http://alain.frisch.fr/flexdll/${NAME}-${VERSION}.tar.gz"
 SRC_DIR=${NAME}
 PATCH_URI="
-	0.19-data-auto-imports.patch
-	0.25-shared-libgcc.patch
 	0.22-cmdline-gcc-opts.patch
-	0.30-no-cygpath.patch
+	0.34-cygwin.patch
 "
 
 DISTCLEANFILES="version.ml"
@@ -22,16 +20,34 @@ DISTCLEANFILES="version.ml"
 src_compile() {
 	lndirs
 	cd ${B}
-	cygmake CHAINS="cygwin mingw mingw64" \
-		CYGCC=${ARCH_x86_64+i686-pc-cygwin-}gcc \
+	cygmake CHAINS="cygwin cygwin64 mingw mingw64" \
 		LINKFLAGS="-ccopt version_res.o"
 	echo -e '#! /bin/sh\nexec /usr/lib/flexdll/flexlink.exe "$@"' > flexlink.sh
 }
 
 src_test() {
 	cd ${B}/test
+	inform "Testing i686-w64-mingw32"
 	cygmake clean
-	cygmake demo CHAIN="cygwin${ARCH_x86_64+64}" CC="${CC}" O="o" EXTRA_OPTS="-v -v -v -explain -show-exports -show-imports"
+	cygmake demo CHAIN="mingw" CC="i686-w64-mingw32-gcc" O="o" EXTRA_OPTS="-v -v -v -explain -show-exports -show-imports"
+
+	if defined ARCH_x86_64
+	then
+		inform "Testing x86_64-w64-mingw32"
+		cygmake clean
+		cygmake demo CHAIN="mingw64" CC="x86_64-w64-mingw32-gcc" O="o" EXTRA_OPTS="-v -v -v -explain -show-exports -show-imports"
+
+		inform "Testing x86_64-pc-cygwin"
+		cygmake clean
+		cygmake demo CHAIN="cygwin64" CC="x86_64-pc-cygwin-gcc" O="o" EXTRA_OPTS="-v -v -v -explain -show-exports -show-imports"
+
+		check_prog i686-pc-cygwin-gcc || return
+		CYGWIN32_RUN="PATH=\"/usr/i686-pc-cygwin/sys-root/usr/bin:$PATH\""
+	fi
+
+	inform "Testing i686-pc-cygwin"
+	cygmake clean
+	cygmake demo CHAIN="cygwin" CC="i686-pc-cygwin-gcc" O="o" EXTRA_OPTS="-v -v -v -explain -show-exports -show-imports" RUN="${CYGWIN32_RUN}"
 }
 
 src_install() {
