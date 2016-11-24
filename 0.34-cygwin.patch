@@ -33,7 +33,7 @@
      else default_libs := "dllcrt2.o" :: !default_libs
    in
 +  let cygwin_libs pre =
-+    gcc := pre ^ "-gcc";
++    gcc := pre ^ "gcc";
 +    objdump := "/usr/" ^ pre ^ "/bin/objdump";
 +    search_path :=
 +      !dirs @
