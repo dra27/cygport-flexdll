@@ -2,7 +2,7 @@ inherit ocaml
 
 NAME="flexdll"
 VERSION=0.35
-RELEASE=1
+RELEASE=2
 CATEGORY="Devel"
 SUMMARY="Creates DLLs with runtime symbol resolution"
 DESCRIPTION="FlexDLL implements the POSIX dlopen API by creating DLLs whose
@@ -12,6 +12,7 @@ SRC_URI="${HOMEPAGE}/archive/${VERSION}/${NAME}-${VERSION}.tar.gz"
 PATCH_URI="
 	0.22-cmdline-gcc-opts.patch
 	0.34-cygwin.patch
+	0.35-data-auto-imports.patch
 "
 
 DISTCLEANFILES="version.ml"
