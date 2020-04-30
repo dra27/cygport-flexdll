@@ -34,7 +34,7 @@
    in
 +  let cygwin_libs pre =
 +    gcc := pre ^ "gcc";
-+    objdump := "/usr/" ^ pre ^ "/bin/objdump";
++    objdump := "/usr/" ^ (String.sub pre 0 ((String.length pre) - 1)) ^ "/bin/objdump";
 +    search_path :=
 +      !dirs @
 +      [

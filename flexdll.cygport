@@ -1,8 +1,8 @@
 inherit ocaml
 
 NAME="flexdll"
-VERSION=0.35
-RELEASE=2
+VERSION=0.37
+RELEASE=1
 CATEGORY="Devel"
 SUMMARY="Creates DLLs with runtime symbol resolution"
 DESCRIPTION="FlexDLL implements the POSIX dlopen API by creating DLLs whose
