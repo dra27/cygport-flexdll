@@ -1,0 +1,8 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Creates DLLs with runtime symbol resolution"
+ldesc: "FlexDLL implements the POSIX dlopen API by creating DLLs whose
+symbols can be resolved at runtime, rather than at linktime as is usual."
+skip:
+test:
+homepage: https://github.com/alainfrisch/flexdll
