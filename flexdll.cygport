@@ -1,7 +1,7 @@
 inherit ocaml
 
 NAME="flexdll"
-VERSION=0.37
+VERSION=0.39
 RELEASE=1
 CATEGORY="Devel"
 SUMMARY="Creates DLLs with runtime symbol resolution"
@@ -12,7 +12,6 @@ SRC_URI="${HOMEPAGE}/archive/${VERSION}/${NAME}-${VERSION}.tar.gz"
 PATCH_URI="
 	0.22-cmdline-gcc-opts.patch
 	0.34-cygwin.patch
-	0.35-data-auto-imports.patch
 "
 
 DISTCLEANFILES="version.ml"
